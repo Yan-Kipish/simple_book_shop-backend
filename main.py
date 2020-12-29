@@ -1,8 +1,9 @@
 from typing import Optional
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from pydantic import BaseModel
+from valid_models import Book
 import db
+import routers
 
 app = FastAPI()
 
@@ -19,28 +20,12 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-
-class Book(BaseModel):
-    title: str
-    author: str
-    price: float
-    description: Optional[str] = None
-
+@app.get('/')
+def hello():
+    return {"result": "Hello, World!"}
 
 @app.get('/ping')
-def hello():
+def ping():
     return {"result": "pong!"}
 
-
-@app.get('/books')
-def get_books():
-    return {
-        "status": "success",
-        "books": db.BOOKS
-    }
-
-@app.post('/books')
-def new_books(book: Book):
-    response_object = {'status': 'success'}
-    db.BOOKS.append(book)
-    return response_object
+app.include_router(routers.book_router)

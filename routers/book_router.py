@@ -1,5 +1,5 @@
 from fastapi import APIRouter
-from valid_models import Book
+from schemas import Book
 import db
 
 book_router = APIRouter(prefix='/books')

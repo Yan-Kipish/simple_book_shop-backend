@@ -1,7 +1,7 @@
 from typing import Optional
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from valid_models import Book
+from schemas import Book
 import db
 import routers
 

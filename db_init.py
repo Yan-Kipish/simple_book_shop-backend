@@ -1,5 +1,5 @@
 from db import add_book_to_db, base_engine
-import valid_models
+import schemas
 import db_models
 
 BOOKS = [
@@ -22,5 +22,5 @@ BOOKS = [
 
 db_models.Base.metadata.create_all(base_engine)
 for book in BOOKS:
-    json_book = valid_models.Book(**book)
+    json_book = schemas.Book(**book)
     add_book_to_db(json_book)

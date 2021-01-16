@@ -5,11 +5,12 @@ class Book(BaseModel):
     title: str
     author: str
     price: float
-    description: Optional[str] = None
+    description: Optional[str]
 
     class Config:
         orm_mode = True
 
 class Customer(BaseModel):
-    name: str
+    name: Optional[str]
     email: EmailStr
+    password: str

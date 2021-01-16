@@ -29,3 +29,4 @@ def ping():
     return {"result": "pong!"}
 
 app.include_router(routers.book_router)
+app.include_router(routers.auth_router)

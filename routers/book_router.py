@@ -1,17 +1,14 @@
-from fastapi import APIRouter
+from fastapi import APIRouter, status
 from schemas import Book
 import db
 
 book_router = APIRouter(prefix='/books')
 
-@book_router.get('/')
+@book_router.get('/', status_code=status.HTTP_200_OK)
 def get_all_books():
-    return {
-        "status": "success",
-        "books": db.get_all_books()
-    }
+    return db.get_all_books()
 
-@book_router.post('/')
+@book_router.post('/', status_code=status.HTTP_201_CREATED)
 def add_new_book(book: Book):
     response_object = {'status': 'success'}
     try:
@@ -20,11 +17,9 @@ def add_new_book(book: Book):
         response_object['status'] = 'error'
     return response_object
 
-@book_router.get('/{title}')
-def get_book_by_title(title: str):
-    response_object = {'result': 'success'}
-    book = db.get_book_by_title(title)
-    response_object['body'] = book
-    return response_object
+@book_router.put('/{id}')
+def update_book(id: int, book: Book):
+    return db.update_book(id, Book)
+
 
 __all__ = book_router
